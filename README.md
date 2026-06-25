@@ -12,14 +12,27 @@ HTML/CSS/JS. Hosted on **Cloudflare Pages**.
 | `privacy.html` | Website privacy policy (covers this site only; each app has its own policy). |
 | `styles.css` | Shared styling — modern indigo/violet theme. |
 
-## Deploy to Cloudflare Pages
+## Hosting (Cloudflare Worker with static assets)
 
-1. Cloudflare dashboard → **Workers & Pages** → **Create** → **Pages** →
-   connect this repo (or direct-upload the folder).
-2. Build settings: **no build command**; **output directory** = `/` (the repo
-   root — these files are served as-is).
-3. Add the custom domain **jamdailytools.com** (Pages → Custom domains). DNS is
-   already on Cloudflare.
+The site is deployed as a Cloudflare **Worker** (static assets) and is reachable
+at its `*.workers.dev` URL, e.g.
+`https://jamdailytools-public.<account>.workers.dev/`.
+
+### Point the custom domain at it
+
+The `jamdailytools.com` zone is already in this Cloudflare account, but the
+apex has no DNS record until you attach it to the Worker:
+
+1. Cloudflare dashboard → **Workers & Pages** → open the **`jamdailytools-public`**
+   worker.
+2. **Settings → Domains & Routes** (a.k.a. *Triggers → Custom Domains*) →
+   **Add → Custom Domain**.
+3. Enter **`jamdailytools.com`** (and **`www.jamdailytools.com`** if you want
+   both). Use **Custom Domain**, not *Route* — a Custom Domain auto-creates the
+   proxied DNS record and TLS cert; a Route needs a record to already exist.
+
+Within ~a minute `https://jamdailytools.com` resolves and serves the Worker,
+and `http://` redirects to `https://`.
 
 Cloudflare serves `/privacy` from `privacy.html` automatically via clean URLs,
 so no redirects file is needed.
