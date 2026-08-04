@@ -2,7 +2,8 @@
 
 Static marketing site for **JAM Daily Tools LLC** at
 [jamdailytools.com](https://jamdailytools.com). Zero build step — plain
-HTML/CSS/JS. Hosted on **Cloudflare Pages**.
+HTML/CSS/JS. Deployed as a **Cloudflare Worker with static assets**
+(see `wrangler.jsonc`), not Cloudflare Pages.
 
 ## Files
 
@@ -10,7 +11,9 @@ HTML/CSS/JS. Hosted on **Cloudflare Pages**.
 |---|---|
 | `index.html` | Company landing page: hero, what we do, apps (Courtzee), about, contact. |
 | `privacy.html` | Website privacy policy (covers this site only; each app has its own policy). |
+| `terms.html` | Website terms of use (covers this site only; each app has its own terms/EULA). |
 | `styles.css` | Shared styling — modern indigo/violet theme. |
+| `wrangler.jsonc` | Cloudflare Worker config; serves the repo root. |
 
 ## Hosting (Cloudflare Worker with static assets)
 
