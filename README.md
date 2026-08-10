@@ -9,7 +9,7 @@ HTML/CSS/JS. Deployed as a **Cloudflare Worker with static assets**
 
 | File | Purpose |
 |---|---|
-| `index.html` | Company landing page: hero, what we do, apps (Courtzee), about, contact. |
+| `index.html` | Company landing page: hero, what we do, apps (TourneySmith), about, contact. |
 | `privacy.html` | Website privacy policy (covers this site only; each app has its own policy). |
 | `terms.html` | Website terms of use (covers this site only; each app has its own terms/EULA). |
 | `styles.css` | Shared styling — modern indigo/violet theme. |
@@ -52,6 +52,6 @@ so no redirects file is needed.
 
 ## Adding a new app
 
-Duplicate the Courtzee `<article class="product">` block in `index.html`, give
+Duplicate the TourneySmith `<article class="product">` block in `index.html`, give
 it its own mark color, and link to its site. Keep each app's detailed privacy
 policy on that app's own domain.

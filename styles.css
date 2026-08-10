@@ -200,7 +200,7 @@ h1, h2, h3 { color: var(--ink); letter-spacing: -0.02em; }
   align-items: center;
   justify-content: center;
 }
-.product-mark.courtzee { background: linear-gradient(135deg, #1f8a4c, #16693a); }
+.product-mark.tourneysmith { background: linear-gradient(135deg, #1f8a4c, #16693a); }
 .product-dot {
   width: 22px; height: 22px; border-radius: 50%;
   background: #fff; box-shadow: 0 0 0 6px rgba(255, 255, 255, 0.25);
