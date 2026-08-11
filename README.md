@@ -14,6 +14,8 @@ HTML/CSS/JS. Deployed as a **Cloudflare Worker with static assets**
 | `terms.html` | Website terms of use (covers this site only; each app has its own terms/EULA). |
 | `styles.css` | Shared styling — modern indigo/violet theme. |
 | `wrangler.jsonc` | Cloudflare Worker config; serves the repo root. |
+| `tourneysmith-icon.png` | Product-card icon; regenerate from the app's launcher master, don't edit by hand. |
+| `.well-known/microsoft-identity-association.json` | Proves this domain to Microsoft for Entra publisher verification. Must serve as direct JSON at `/.well-known/…`, never a redirect. Lists the app registration's client ID — update it if that registration is ever replaced. |
 
 ## Hosting (Cloudflare Worker with static assets)
 
