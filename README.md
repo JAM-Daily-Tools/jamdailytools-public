@@ -1,59 +1,63 @@
-# JAM Daily Tools — company website
+# JAM Daily Tools company website
 
-Static marketing site for **JAM Daily Tools LLC** at
-[jamdailytools.com](https://jamdailytools.com). Zero build step — plain
-HTML/CSS/JS. Deployed as a **Cloudflare Worker with static assets**
-(see `wrangler.jsonc`), not Cloudflare Pages.
+Static company, product-summary, website-privacy, and website-terms pages for
+[jamdailytools.com](https://jamdailytools.com). Cloudflare Workers Static
+Assets serves the repository root with no production build step.
 
-## Files
+## Locales and routes
 
-| File | Purpose |
-|---|---|
-| `index.html` | Company landing page: hero, what we do, apps (TourneySmith), about, contact. |
-| `privacy.html` | Website privacy policy (covers this site only; each app has its own policy). |
-| `terms.html` | Website terms of use (covers this site only; each app has its own terms/EULA). |
-| `styles.css` | Shared styling — modern indigo/violet theme. |
-| `wrangler.jsonc` | Cloudflare Worker config; serves the repo root. |
-| `tourneysmith-icon.png` | Product-card icon; regenerate from the app's launcher master, don't edit by hand. |
-| `.well-known/microsoft-identity-association.json` | Proves this domain to Microsoft for Entra publisher verification. Must serve as direct JSON at `/.well-known/…`, never a redirect. Lists the app registration's client ID — update it if that registration is ever replaced. |
+| Locale | Route prefix | Pages |
+|---|---|---|
+| `en` | `/` | company, privacy, terms |
+| `es` | `/es/` | company, privacy, terms |
+| `es-ES` | `/es-ES/` | company, privacy, terms |
+| `pt-BR` | `/pt/` | company, privacy, terms |
+| `fr` | `/fr/` | company, privacy, terms |
+| `it` | `/it/` | company, privacy, terms |
 
-## Hosting (Cloudflare Worker with static assets)
+Every page provides a visible selector, localized metadata, canonical URL, and
+reciprocal `hreflang`. Only company marketing may use the saved or browser
+language automatically. Privacy and Terms never redirect automatically.
 
-The site is deployed as a Cloudflare **Worker** (static assets) and is reachable
-at its `*.workers.dev` URL, e.g.
-`https://jamdailytools-public.<account>.workers.dev/`.
+## Legal boundary
 
-### Point the custom domain at it
+The policies in this repository cover `jamdailytools.com` only. They describe
+Cloudflare request processing, the limited browser language preference, and
+messages sent to company email addresses. They do not describe TourneySmith app
+accounts or product data. Each locale links to the corresponding TourneySmith
+Privacy Policy and Terms on `tourneysmith.com`.
 
-The `jamdailytools.com` zone is already in this Cloudflare account, but the
-apex has no DNS record until you attach it to the Worker:
+Do not add `app-ads.txt` here. The Microsoft publisher-verification file at
+`.well-known/microsoft-identity-association.json` must remain byte-for-byte
+unchanged and directly reachable.
 
-1. Cloudflare dashboard → **Workers & Pages** → open the **`jamdailytools-public`**
-   worker.
-2. **Settings → Domains & Routes** (a.k.a. *Triggers → Custom Domains*) →
-   **Add → Custom Domain**.
-3. Enter **`jamdailytools.com`** (and **`www.jamdailytools.com`** if you want
-   both). Use **Custom Domain**, not *Route* — a Custom Domain auto-creates the
-   proxied DNS record and TLS cert; a Route needs a record to already exist.
+## Source and generated files
 
-Within ~a minute `https://jamdailytools.com` resolves and serves the Worker,
-and `http://` redirects to `https://`.
+The 18 deployed HTML pages and `sitemap.xml` are committed. Edit localized
+content under `tools/content/`, then regenerate:
 
-Cloudflare serves `/privacy` from `privacy.html` automatically via clean URLs,
-so no redirects file is needed.
+```bash
+node tools/generate-site.mjs
+```
 
-## Editing notes
+`tools` and `test` are excluded from deployment by `.assetsignore`.
 
-- Brand colors live in the `:root` block of `styles.css` (`--brand`,
-  `--brand-2`, etc.).
-- The footer year updates automatically via a tiny inline script.
-- The favicon is an inline SVG data-URI in each page's `<head>` — no image
-  asset to manage.
-- Contact emails (`admin@` / `support@jamdailytools.com`) are forwarding rules
-  configured in Cloudflare Email Routing.
+## Owner-run tests
 
-## Adding a new app
+The repository rules prohibit the assistant from running tests. The owner runs:
 
-Duplicate the TourneySmith `<article class="product">` block in `index.html`, give
-it its own mark color, and link to its site. Keep each app's detailed privacy
-policy on that app's own domain.
+```bash
+node --test test/site-contract.test.mjs
+```
+
+Expected result: 12 passing tests.
+
+## Review and deployment
+
+The French and Italian copy awaits native review. All legal translations need
+qualified legal review before deployment. The detailed shared review list and
+launch-region decision record are maintained in the TourneySmith public
+repository under `docs/`.
+
+`wrangler.jsonc` serves the repository root. Review generated HTML and owner-run
+test results before pushing to a deployment-connected branch.

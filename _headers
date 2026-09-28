@@ -1,0 +1,26 @@
+/*
+  Referrer-Policy: strict-origin-when-cross-origin
+  X-Content-Type-Options: nosniff
+  X-Frame-Options: DENY
+
+/
+  Cache-Control: no-cache
+/*.html
+  Cache-Control: no-cache
+/privacy
+  Cache-Control: no-cache
+/terms
+  Cache-Control: no-cache
+/es/*
+  Cache-Control: no-cache
+/es-ES/*
+  Cache-Control: no-cache
+/pt/*
+  Cache-Control: no-cache
+/fr/*
+  Cache-Control: no-cache
+/it/*
+  Cache-Control: no-cache
+
+/.well-known/*
+  Cache-Control: no-cache
